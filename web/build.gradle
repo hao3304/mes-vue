@@ -1,0 +1,23 @@
+plugins {
+    id "com.moowork.node" version "1.1.1"
+    id "java"
+}
+
+task cnpmInstall(type: NpmTask) {
+  group = 'node'
+  args = ['install', '--registry=http://registry.cnpmjs.org']
+}
+
+task npmBuild(type: NpmTask, dependsOn: cnpmInstall) {
+    group = 'node'
+    args = ['run', 'build']
+}
+
+//Gradle的java插件的jar任务，依赖npmBuild,即web子模块打jar包前必须运行npm run build
+jar.dependsOn npmBuild
+
+//调用npm run dev
+task npmDev(type: NpmTask, dependsOn: cnpmInstall) {
+    group = 'node'
+    args = ['run', 'dev']
+}

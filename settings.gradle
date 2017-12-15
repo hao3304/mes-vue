@@ -1,0 +1,4 @@
+rootProject.name = 'mes-vue'
+include 'server'
+include 'web'
+
