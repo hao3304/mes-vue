@@ -7,6 +7,7 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -50,6 +51,18 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true
     }),
+    new CopyWebpackPlugin([
+      {
+        from: 'src/views/main-components/theme-switch/theme'
+      },
+      {
+        from: 'src/views/my-components/text-editor/tinymce'
+      }
+    ], {
+      ignore: [
+        'text-editor.vue'
+      ]
+    })
   ]
 })
 
